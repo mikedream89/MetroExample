@@ -32,4 +32,10 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
     }
+    configurations.all {
+        def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
+        resolutionStrategy {
+            force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
+        }
+    }
 }
